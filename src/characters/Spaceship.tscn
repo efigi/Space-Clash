@@ -1,0 +1,157 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://images/pico8_invaders_sprites_LARGE v2.png" type="Texture" id=1]
+[ext_resource path="res://src/characters/Spaceship.gd" type="Script" id=2]
+[ext_resource path="res://src/states/Idle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/states/Moving.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/stats/Health.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/stats/Bombs.tscn" type="PackedScene" id=6]
+[ext_resource path="res://images/particles/spaceship.png" type="Texture" id=7]
+[ext_resource path="res://src/addons/ShotLine.tscn" type="PackedScene" id=8]
+[ext_resource path="res://images/spaceship/space_ship right.png" type="Texture" id=9]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 8, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": false,
+"name": "right",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": false,
+"name": "idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 58.6712, 48.9723 )
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.244936, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "hurt"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 1 ), Color( 100, 100, 100, 1 ), Color( 1, 1, 1, 1 ), Color( 100, 100, 100, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Spaceship" type="KinematicBody2D" groups=[
+"allies",
+]]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 3 )
+animation = "right"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -0.00330259, 0.405258 )
+scale = Vector2( 0.0680558, 0.0689106 )
+shape = SubResource( 4 )
+
+[node name="Heart" type="ColorRect" parent="."]
+visible = false
+margin_left = -0.860572
+margin_top = 0.317053
+margin_right = 1.13943
+margin_bottom = 2.31705
+rect_min_size = Vector2( 2, 2 )
+color = Color( 1, 0, 0.301961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="States" type="Node2D" parent="."]
+
+[node name="Idle" parent="States" instance=ExtResource( 3 )]
+type = "player"
+
+[node name="Moving" parent="States" instance=ExtResource( 4 )]
+type = "player"
+speed = 20
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="ShotCooldown" type="Timer" parent="Timers"]
+wait_time = 0.6
+one_shot = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="BulletPoint" type="Position2D" parent="."]
+position = Vector2( 0, -6.92318 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Stats" type="Control" parent="HUD"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" parent="HUD/Stats" instance=ExtResource( 5 )]
+
+[node name="Bombs" parent="HUD/Stats" instance=ExtResource( 6 )]
+
+[node name="Particles" type="Node2D" parent="."]
+visible = false
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Particles"]
+self_modulate = Color( 1, 0, 1, 1 )
+position = Vector2( 0, 0.98749 )
+z_index = -1
+lifetime = 0.8
+local_coords = false
+draw_order = 1
+texture = ExtResource( 7 )
+gravity = Vector2( 0, 0 )
+color_ramp = SubResource( 5 )
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Hurt" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Audio"]
+volume_db = -3.0
+
+[node name="Move" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="Addons" type="Node2D" parent="."]
+
+[node name="ShotLine" parent="Addons" instance=ExtResource( 8 )]
+visible = false
+position = Vector2( 0, -3.03432 )
+width = 0.2
+
+[node name="HurtAnimation" type="AnimationPlayer" parent="Addons"]
+anims/hurt = SubResource( 6 )
+[connection signal="timeout" from="Timers/ShotCooldown" to="." method="_on_ShotCooldown_timeout"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
