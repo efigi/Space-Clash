@@ -6,7 +6,7 @@ var possible_states : Dictionary = {}
 
 onready var object_holder = get_parent().get_parent().get_node("Objects")
 onready var states_holder = $States
-onready var health = $Stats/Health
+#onready var health = $Stats/Health
 onready var sprite = $Sprite
 onready var anim_hurt = $Addons/HurtAnimation
 
@@ -33,7 +33,7 @@ func _ready():
 			if _state == null:
 				_state = child
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var input = _state.get_raw_input()
 	change_state(_state.interpret_inputs(input))
 	_state.run(input)
@@ -51,10 +51,10 @@ func enter_state():
 func exit_state():
 	_state.exit()
 
-func change_direction(dir = "idle"):
+func change_direction(_dir = "idle"):
 	pass
 
-func damage(dmg = 1):
+func damage(_dmg = 1):
 	var d = death_particle_resource.instance()
 	d.setup(global_position, color)
 	object_holder.add_child(d)

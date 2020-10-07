@@ -15,5 +15,5 @@ func setup(dir,pos):
 	direction = dir
 	velocity = speed * direction
 
-func _physics_process(delta):
-	move_and_slide(velocity)
+func _physics_process(_delta):
+	velocity = move_and_slide(velocity)

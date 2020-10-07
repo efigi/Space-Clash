@@ -31,8 +31,11 @@ font_data = ExtResource( 3 )
 ]]
 script = ExtResource( 2 )
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
 [node name="BulletServer" type="BulletServer" parent="."]
 max_lifetime = 16.0
+play_area_allow_incoming = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

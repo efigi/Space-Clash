@@ -5,7 +5,7 @@ var is_flipped : bool = false
 onready var tween = $Addons/Tween
 onready var shot_cd = $Timers/ShotCooldown
 onready var bullet_point = $Addons/BulletPoint
-onready var shot_line = $Addons/ShotLine
+#onready var shot_line = $Addons/ShotLine
 #onready var sound_hurt = preload("")
 
 onready var particles = $Particles
@@ -24,7 +24,7 @@ func _ready():
 	tween.interpolate_property(self, "rotation_degrees", 360, 0,d, Tween.TRANS_LINEAR,Tween.EASE_IN)
 	tween.start()
 	var level = get_parent().get_parent()
-	self.connect("died", level, "go_to")
+	var _connected = self.connect("died", level, "go_to")
 #for state-independent movement
 func _physics_process(delta):
 	._physics_process(delta)
@@ -79,7 +79,7 @@ func damage(dmg = 1):
 func show_other_parts(t = true):
 	particles.visible = t
 	
-func _on_Tween_tween_completed(object, key):
+func _on_Tween_tween_completed(_object, key):
 	if key == ":scale":
 		play_sound("move")
 		yield(get_tree().create_timer(0.2), "timeout")

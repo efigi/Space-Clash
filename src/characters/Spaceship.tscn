@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://images/pico8_invaders_sprites_LARGE v2.png" type="Texture" id=1]
 [ext_resource path="res://src/characters/Spaceship.gd" type="Script" id=2]
@@ -13,15 +13,20 @@
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 8, 0, 8, 8 )
+region = Rect2( 0, 0, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 8, 8 )
+region = Rect2( 8, 0, 8, 8 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ SubResource( 1 ) ],
+"loop": false,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ) ],
 "loop": false,
 "name": "left",
 "speed": 5.0
@@ -29,11 +34,6 @@ animations = [ {
 "frames": [ ExtResource( 9 ) ],
 "loop": false,
 "name": "right",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 2 ) ],
-"loop": false,
-"name": "idle",
 "speed": 5.0
 } ]
 
@@ -57,24 +57,54 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 100, 100, 100, 1 ), Color( 1, 1, 1, 1 ), Color( 100, 100, 100, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=6]
 
 [sub_resource type="BulletType" id=7]
-speed = 20.0
+speed = 30.0
 damage = 1.0
 texture = ExtResource( 8 )
-collision_shape = SubResource( 9 )
+collision_shape = SubResource( 6 )
 collision_detect_bodies = false
 collision_detect_areas = false
+h_wave_type = 0
 h_wave_amplitude = 5.0
 h_wave_frequency = 1.0
-v_wave_type = 1
 v_wave_amplitude = 5.0
 v_wave_frequency = 1.0
 face_direction = true
 rotation = 1.4013e-45
 custom_data = {
 
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "default"
+length = 2.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:bullet_type:curve_rate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -10.0, 10.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:arc_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -1.0, 1.0, -1.0 ]
 }
 
 [sub_resource type="Gradient" id=8]
@@ -131,10 +161,17 @@ position = Vector2( 0, -6.92318 )
 [node name="BulletSpawner" type="BulletSpawner" parent="Addons"]
 shot_count = 5
 radius = 5.0
-arc_width = 1.5708
+arc_width = 0.523599
 arc_rotation = -1.5708
+arc_offset = -0.656906
 bullet_type = SubResource( 7 )
+aim_target_position = Vector2( 0, -100000 )
+scatter_range = 1.5708
 script = ExtResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Addons/BulletSpawner"]
+autoplay = "default"
+anims/default = SubResource( 9 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -177,7 +214,7 @@ volume_db = -3.0
 [node name="Timers" type="Node2D" parent="."]
 
 [node name="ShotCooldown" type="Timer" parent="Timers"]
-wait_time = 0.1
+wait_time = 0.2
 one_shot = true
 autostart = true
 [connection signal="tween_completed" from="Addons/Tween" to="." method="_on_Tween_tween_completed"]
