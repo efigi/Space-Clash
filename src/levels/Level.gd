@@ -1,7 +1,7 @@
 class_name Level
 extends Node2D
 
-onready var menu_path = "res://src/menus/MainMenu.tscn"
+onready var menu_path = "res://src/menus/MainMenuMobile.tscn"
 onready var screenshake = $Addons/Camera/Screenshake
 var score = 0
 var shown_score = 0
@@ -15,12 +15,12 @@ func _ready():
 	
 func _process(delta):
 	score_label.text = String(ceil(shown_score))
-	
-#func _unhandled_input(event):
-#	if event.is_action_pressed("reset"):
-#		get_tree().reload_current_scene()
-#	if event.is_action_pressed("menu"):
-#		get_tree().change_scene(menu_path)
+	$HUD/Control/FPS.text = "FPS: " + String(Performance.get_monitor(Performance.TIME_FPS))
+func _unhandled_input(event):
+	if event.is_action_pressed("reset"):
+		get_tree().reload_current_scene()
+	if event.is_action_pressed("menu"):
+		get_tree().change_scene(menu_path)
 
 func screenshake():
 	screenshake.start()

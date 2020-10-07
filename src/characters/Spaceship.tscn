@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://images/pico8_invaders_sprites_LARGE v2.png" type="Texture" id=1]
 [ext_resource path="res://src/characters/Spaceship.gd" type="Script" id=2]
@@ -7,8 +7,9 @@
 [ext_resource path="res://src/stats/Health.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/stats/Bombs.tscn" type="PackedScene" id=6]
 [ext_resource path="res://images/particles/spaceship.png" type="Texture" id=7]
-[ext_resource path="res://src/addons/ShotLine.tscn" type="PackedScene" id=8]
+[ext_resource path="res://images/bullet blue.png" type="Texture" id=8]
 [ext_resource path="res://images/spaceship/space_ship right.png" type="Texture" id=9]
+[ext_resource path="res://src/addons/PlayerBulletSpawner.gd" type="Script" id=10]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -39,11 +40,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 58.6712, 48.9723 )
 
-[sub_resource type="Gradient" id=5]
-offsets = PoolRealArray( 0, 0.244936, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
-
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "hurt"
 length = 0.2
 step = 0.05
@@ -59,6 +56,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [ Color( 1, 1, 1, 1 ), Color( 100, 100, 100, 1 ), Color( 1, 1, 1, 1 ), Color( 100, 100, 100, 1 ), Color( 1, 1, 1, 1 ) ]
 }
+
+[sub_resource type="RectangleShape2D" id=9]
+
+[sub_resource type="BulletType" id=7]
+speed = 20.0
+damage = 1.0
+texture = ExtResource( 8 )
+collision_shape = SubResource( 9 )
+collision_detect_bodies = false
+collision_detect_areas = false
+h_wave_amplitude = 5.0
+h_wave_frequency = 1.0
+v_wave_type = 1
+v_wave_amplitude = 5.0
+v_wave_frequency = 1.0
+face_direction = true
+rotation = 1.4013e-45
+custom_data = {
+
+}
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.244936, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="Spaceship" type="KinematicBody2D" groups=[
 "allies",
@@ -97,16 +118,23 @@ type = "player"
 type = "player"
 speed = 20
 
-[node name="Timers" type="Node2D" parent="."]
+[node name="Addons" type="Node2D" parent="."]
 
-[node name="ShotCooldown" type="Timer" parent="Timers"]
-wait_time = 0.6
-one_shot = true
+[node name="HurtAnimation" type="AnimationPlayer" parent="Addons"]
+anims/hurt = SubResource( 5 )
 
-[node name="Tween" type="Tween" parent="."]
+[node name="Tween" type="Tween" parent="Addons"]
 
-[node name="BulletPoint" type="Position2D" parent="."]
+[node name="BulletPoint" type="Position2D" parent="Addons"]
 position = Vector2( 0, -6.92318 )
+
+[node name="BulletSpawner" type="BulletSpawner" parent="Addons"]
+shot_count = 5
+radius = 5.0
+arc_width = 1.5708
+arc_rotation = -1.5708
+bullet_type = SubResource( 7 )
+script = ExtResource( 10 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -118,8 +146,10 @@ __meta__ = {
 }
 
 [node name="Health" parent="HUD/Stats" instance=ExtResource( 5 )]
+position = Vector2( 1, 1 )
 
 [node name="Bombs" parent="HUD/Stats" instance=ExtResource( 6 )]
+position = Vector2( 26, 1 )
 
 [node name="Particles" type="Node2D" parent="."]
 visible = false
@@ -133,7 +163,7 @@ local_coords = false
 draw_order = 1
 texture = ExtResource( 7 )
 gravity = Vector2( 0, 0 )
-color_ramp = SubResource( 5 )
+color_ramp = SubResource( 8 )
 
 [node name="Audio" type="Node" parent="."]
 
@@ -144,14 +174,11 @@ volume_db = -3.0
 
 [node name="Move" type="AudioStreamPlayer" parent="Audio"]
 
-[node name="Addons" type="Node2D" parent="."]
+[node name="Timers" type="Node2D" parent="."]
 
-[node name="ShotLine" parent="Addons" instance=ExtResource( 8 )]
-visible = false
-position = Vector2( 0, -3.03432 )
-width = 0.2
-
-[node name="HurtAnimation" type="AnimationPlayer" parent="Addons"]
-anims/hurt = SubResource( 6 )
+[node name="ShotCooldown" type="Timer" parent="Timers"]
+wait_time = 0.1
+one_shot = true
+autostart = true
+[connection signal="tween_completed" from="Addons/Tween" to="." method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Timers/ShotCooldown" to="." method="_on_ShotCooldown_timeout"]
-[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

@@ -1,4 +1,4 @@
-class_name Bullet
+class_name BulletLite
 extends KinematicBody2D
 
 export var speed = 30

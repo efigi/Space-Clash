@@ -10,46 +10,46 @@ script = ExtResource( 1 )
 [node name="1" type="RayCast2D" parent="SpawnCheckers"]
 position = Vector2( 0, -4 )
 enabled = true
-cast_to = Vector2( 64, 0 )
+cast_to = Vector2( 90, 0 )
 
 [node name="2" type="RayCast2D" parent="SpawnCheckers"]
 position = Vector2( 0, -3 )
 enabled = true
-cast_to = Vector2( 64, 0 )
+cast_to = Vector2( 90, 0 )
 
 [node name="3" type="RayCast2D" parent="SpawnCheckers"]
 position = Vector2( 0, -2 )
 enabled = true
-cast_to = Vector2( 64, 0 )
+cast_to = Vector2( 90, 0 )
 
 [node name="4" type="RayCast2D" parent="SpawnCheckers"]
 position = Vector2( 0, -1 )
 enabled = true
-cast_to = Vector2( 64, 0 )
+cast_to = Vector2( 90, 0 )
 
 [node name="5" type="RayCast2D" parent="SpawnCheckers"]
 enabled = true
-cast_to = Vector2( 64, 0 )
+cast_to = Vector2( 90, 0 )
 
 [node name="6" type="RayCast2D" parent="SpawnCheckers"]
 position = Vector2( 0, 1 )
 enabled = true
-cast_to = Vector2( 64, 0 )
+cast_to = Vector2( 90, 0 )
 
 [node name="7" type="RayCast2D" parent="SpawnCheckers"]
 position = Vector2( 0, 2 )
 enabled = true
-cast_to = Vector2( 64, 0 )
+cast_to = Vector2( 90, 0 )
 
 [node name="8" type="RayCast2D" parent="SpawnCheckers"]
 position = Vector2( 0, 3 )
 enabled = true
-cast_to = Vector2( 64, 0 )
+cast_to = Vector2( 90, 0 )
 
 [node name="9" type="RayCast2D" parent="SpawnCheckers"]
 position = Vector2( 0, 4 )
 enabled = true
-cast_to = Vector2( 64, 0 )
+cast_to = Vector2( 90, 0 )
 
 [node name="Positions" type="Node2D" parent="."]
 

@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/characters/Spaceship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=2]
 [ext_resource path="res://fonts/Pixels TEXT.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/spawners/EnemySpawner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/world/Wall.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/characters/UFO.tscn" type="PackedScene" id=7]
 [ext_resource path="res://images/particles/asteroids/asteroid1.png" type="Texture" id=8]
 [ext_resource path="res://images/particles/asteroids/asteroid3.png" type="Texture" id=9]
 [ext_resource path="res://images/particles/asteroids/asteroid2.png" type="Texture" id=10]
@@ -21,7 +20,7 @@ offsets = PoolRealArray( 0, 0.240741, 0.734568, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.0728477, 0.910596, 1 )
+offsets = PoolRealArray( 0, 0.0728477, 0.943709, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -32,20 +31,23 @@ font_data = ExtResource( 3 )
 ]]
 script = ExtResource( 2 )
 
+[node name="BulletServer" type="BulletServer" parent="."]
+max_lifetime = 16.0
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="Starfield" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer1"]
 self_modulate = Color( 0.113725, 0.168627, 0.32549, 1 )
-position = Vector2( 32, 36 )
+position = Vector2( 45, 80 )
 z_index = -100
-amount = 12
+amount = 20
 lifetime = 4.0
 preprocess = 8.0
 randomness = 0.39
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 28 )
+emission_rect_extents = Vector2( 45, 80 )
 direction = Vector2( 0, 0 )
 gravity = Vector2( 0, 0 )
 angular_velocity_random = 1.0
@@ -55,13 +57,13 @@ color_ramp = SubResource( 1 )
 
 [node name="ShootingStarField" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer2"]
 self_modulate = Color( 0.113725, 0.168627, 0.32549, 0.392157 )
-position = Vector2( 32, -2 )
+position = Vector2( 45, -2 )
 z_index = -30
-amount = 15
-lifetime = 20.0
+amount = 25
+lifetime = 30.0
 texture = ExtResource( 13 )
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
+emission_rect_extents = Vector2( 45, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -71,25 +73,121 @@ radial_accel_random = 1.0
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 
+[node name="AsteroidsBottom" type="Node2D" parent="ParallaxBackground/ParallaxLayer3"]
+
+[node name="Asteroid1" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer3/AsteroidsBottom"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 2
+lifetime = 40.0
+preprocess = 10.0
+draw_order = 1
+texture = ExtResource( 8 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
+[node name="Asteroid2" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer3/AsteroidsBottom"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 2
+lifetime = 40.0
+preprocess = 15.0
+draw_order = 1
+texture = ExtResource( 10 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
+[node name="Asteroid3" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer3/AsteroidsBottom"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 2
+lifetime = 40.0
+preprocess = 20.0
+draw_order = 1
+texture = ExtResource( 9 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
+[node name="Asteroid4" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer3/AsteroidsBottom"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 2
+lifetime = 40.0
+preprocess = 25.0
+draw_order = 1
+texture = ExtResource( 11 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
+[node name="Asteroid5" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer3/AsteroidsBottom"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 2
+lifetime = 40.0
+preprocess = 30.0
+draw_order = 1
+texture = ExtResource( 12 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
 
-[node name="Asteroids" type="Node2D" parent="ParallaxBackground/ParallaxLayer5"]
-position = Vector2( 0, -6.68513 )
+[node name="AsteroidsMid" type="Node2D" parent="ParallaxBackground/ParallaxLayer5"]
 
-[node name="Asteroid1" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer5/Asteroids"]
+[node name="Asteroid1" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer5/AsteroidsMid"]
 self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
-position = Vector2( 32, 0 )
+position = Vector2( 45, 0 )
 z_index = -20
 z_as_relative = false
-amount = 1
-lifetime = 25.0
-preprocess = 15.0
+amount = 2
+lifetime = 40.0
+preprocess = 10.0
 draw_order = 1
 texture = ExtResource( 8 )
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
+emission_rect_extents = Vector2( 45, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -97,18 +195,18 @@ initial_velocity = 5.0
 initial_velocity_random = 0.35
 color_ramp = SubResource( 2 )
 
-[node name="Asteroid2" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer5/Asteroids"]
+[node name="Asteroid2" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer5/AsteroidsMid"]
 self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
-position = Vector2( 32, 0 )
+position = Vector2( 45, 0 )
 z_index = -20
 z_as_relative = false
-amount = 1
-lifetime = 25.0
-preprocess = 10.0
+amount = 2
+lifetime = 40.0
+preprocess = 15.0
 draw_order = 1
 texture = ExtResource( 10 )
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
+emission_rect_extents = Vector2( 45, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -116,18 +214,18 @@ initial_velocity = 5.0
 initial_velocity_random = 0.35
 color_ramp = SubResource( 2 )
 
-[node name="Asteroid3" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer5/Asteroids"]
+[node name="Asteroid3" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer5/AsteroidsMid"]
 self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
-position = Vector2( 32, 0 )
+position = Vector2( 45, 0 )
 z_index = -20
 z_as_relative = false
 amount = 2
-lifetime = 25.0
-preprocess = 7.0
+lifetime = 40.0
+preprocess = 20.0
 draw_order = 1
 texture = ExtResource( 9 )
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
+emission_rect_extents = Vector2( 45, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -135,37 +233,138 @@ initial_velocity = 5.0
 initial_velocity_random = 0.35
 color_ramp = SubResource( 2 )
 
-[node name="Asteroid4" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer5/Asteroids"]
+[node name="Asteroid4" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer5/AsteroidsMid"]
 self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
-position = Vector2( 32, 0 )
-z_index = -20
-z_as_relative = false
-amount = 1
-lifetime = 25.0
-preprocess = 18.0
-draw_order = 1
-texture = ExtResource( 11 )
-emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
-direction = Vector2( 0, 1 )
-spread = 0.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 5.0
-initial_velocity_random = 0.35
-color_ramp = SubResource( 2 )
-
-[node name="Asteroid5" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer5/Asteroids"]
-self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
-position = Vector2( 32, 0 )
+position = Vector2( 45, 0 )
 z_index = -20
 z_as_relative = false
 amount = 2
-lifetime = 25.0
-preprocess = 23.0
+lifetime = 40.0
+preprocess = 25.0
+draw_order = 1
+texture = ExtResource( 11 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
+[node name="Asteroid5" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer5/AsteroidsMid"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 2
+lifetime = 40.0
+preprocess = 30.0
 draw_order = 1
 texture = ExtResource( 12 )
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="AsteroidsTop" type="Node2D" parent="ParallaxBackground/ParallaxLayer7"]
+
+[node name="Asteroid1" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer7/AsteroidsTop"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 1
+lifetime = 40.0
+preprocess = 10.0
+draw_order = 1
+texture = ExtResource( 8 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
+[node name="Asteroid2" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer7/AsteroidsTop"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 1
+lifetime = 40.0
+preprocess = 15.0
+draw_order = 1
+texture = ExtResource( 10 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
+[node name="Asteroid3" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer7/AsteroidsTop"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 1
+lifetime = 40.0
+preprocess = 20.0
+draw_order = 1
+texture = ExtResource( 9 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
+[node name="Asteroid4" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer7/AsteroidsTop"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 1
+lifetime = 40.0
+preprocess = 25.0
+draw_order = 1
+texture = ExtResource( 11 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
+direction = Vector2( 0, 1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.35
+color_ramp = SubResource( 2 )
+
+[node name="Asteroid5" type="CPUParticles2D" parent="ParallaxBackground/ParallaxLayer7/AsteroidsTop"]
+self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+position = Vector2( 45, 0 )
+z_index = -20
+z_as_relative = false
+amount = 1
+lifetime = 40.0
+preprocess = 30.0
+draw_order = 1
+texture = ExtResource( 12 )
+emission_shape = 2
+emission_rect_extents = Vector2( 45, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -176,7 +375,7 @@ color_ramp = SubResource( 2 )
 [node name="Characters" type="Node" parent="."]
 
 [node name="Spaceship" parent="Characters" instance=ExtResource( 1 )]
-position = Vector2( 32, 46 )
+position = Vector2( 46.9988, 128.495 )
 
 [node name="Objects" type="Node" parent="."]
 
@@ -186,15 +385,12 @@ position = Vector2( 34, 44 )
 [node name="Wall1" parent="Obstacles" instance=ExtResource( 6 )]
 visible = false
 position = Vector2( -37, -45 )
-scale = Vector2( 1, 40 )
+scale = Vector2( 1, 100 )
 
 [node name="Wall2" parent="Obstacles" instance=ExtResource( 6 )]
 visible = false
-position = Vector2( 30, -45 )
-scale = Vector2( 1, 40 )
-
-[node name="UFO" parent="Obstacles" instance=ExtResource( 7 )]
-position = Vector2( -8.25, 14 )
+position = Vector2( 56.6679, -45 )
+scale = Vector2( 1, 100 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -208,13 +404,26 @@ __meta__ = {
 }
 
 [node name="Score" type="Label" parent="HUD/Control"]
-margin_top = -3.90014
-margin_right = 64.0
-margin_bottom = 8.09986
+margin_top = -3.10996
+margin_right = 90.0
+margin_bottom = 8.9899
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 text = "345"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="HUD/Control"]
+margin_left = 1.55759
+margin_top = 145.526
+margin_right = 91.5576
+margin_bottom = 157.626
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+text = "FPS: 60"
+valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -225,6 +434,7 @@ modulate = Color( 1, 1, 1, 0.333333 )
 [node name="Spawners" type="Node" parent="."]
 
 [node name="EnemySpawner" parent="Spawners" instance=ExtResource( 4 )]
+script = null
 
 [node name="Addons" type="Node2D" parent="."]
 

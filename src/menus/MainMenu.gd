@@ -1,7 +1,7 @@
 class_name MainMenu
 extends Node2D
 
-export var path = "res://src/menus/StoryMenu.tscn"
+export var path = "res://src/menus/StoryMenuMobile.tscn"
 onready var anim = $Labels/StartLabel/AnimationPlayer
 onready var audio_clicked = $Audio/Clicked
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/menus/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/Kenney Space.ttf" type="DynamicFontData" id=2]
@@ -23,10 +23,11 @@ offsets = PoolRealArray( 0, 0.0728477, 0.910596, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 6
+size = 8
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=4]
+size = 20
 font_data = ExtResource( 3 )
 
 [sub_resource type="Animation" id=5]
@@ -64,7 +65,11 @@ tracks/0/keys = {
 }
 
 [sub_resource type="DynamicFont" id=7]
-size = 3
+size = 8
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 5
 font_data = ExtResource( 3 )
 
 [node name="MainMenu" type="Node2D"]
@@ -74,14 +79,14 @@ script = ExtResource( 1 )
 
 [node name="Starfield" type="CPUParticles2D" parent="Particles"]
 self_modulate = Color( 0.113725, 0.168627, 0.32549, 1 )
-position = Vector2( 32, 36 )
+position = Vector2( 45, 80 )
 z_index = -100
-amount = 12
+amount = 25
 lifetime = 4.0
 preprocess = 8.0
 randomness = 0.39
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 28 )
+emission_rect_extents = Vector2( 45, 80 )
 direction = Vector2( 0, 0 )
 gravity = Vector2( 0, 0 )
 angular_velocity_random = 1.0
@@ -92,16 +97,16 @@ position = Vector2( 0, -6.68513 )
 
 [node name="Asteroid1" type="CPUParticles2D" parent="Particles/Asteroids"]
 self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
-position = Vector2( 32, 0 )
+position = Vector2( 45, 0 )
 z_index = -20
 z_as_relative = false
-amount = 1
-lifetime = 15.0
+amount = 3
+lifetime = 40.0
 preprocess = 15.0
 draw_order = 1
 texture = ExtResource( 8 )
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
+emission_rect_extents = Vector2( 45, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -111,16 +116,16 @@ color_ramp = SubResource( 2 )
 
 [node name="Asteroid2" type="CPUParticles2D" parent="Particles/Asteroids"]
 self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
-position = Vector2( 32, 0 )
+position = Vector2( 45, 0 )
 z_index = -20
 z_as_relative = false
-amount = 1
-lifetime = 15.0
+amount = 3
+lifetime = 40.0
 preprocess = 10.0
 draw_order = 1
 texture = ExtResource( 10 )
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
+emission_rect_extents = Vector2( 45, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -130,16 +135,16 @@ color_ramp = SubResource( 2 )
 
 [node name="Asteroid3" type="CPUParticles2D" parent="Particles/Asteroids"]
 self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
-position = Vector2( 32, 0 )
+position = Vector2( 45, 0 )
 z_index = -20
 z_as_relative = false
-amount = 2
-lifetime = 15.0
-preprocess = 7.0
+amount = 3
+lifetime = 40.0
+preprocess = 20.0
 draw_order = 1
 texture = ExtResource( 9 )
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
+emission_rect_extents = Vector2( 45, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -149,16 +154,16 @@ color_ramp = SubResource( 2 )
 
 [node name="Asteroid4" type="CPUParticles2D" parent="Particles/Asteroids"]
 self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
-position = Vector2( 32, 0 )
+position = Vector2( 45, 0 )
 z_index = -20
 z_as_relative = false
-amount = 1
-lifetime = 15.0
-preprocess = 18.0
+amount = 3
+lifetime = 40.0
+preprocess = 30.0
 draw_order = 1
 texture = ExtResource( 11 )
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
+emission_rect_extents = Vector2( 45, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -168,16 +173,16 @@ color_ramp = SubResource( 2 )
 
 [node name="Asteroid5" type="CPUParticles2D" parent="Particles/Asteroids"]
 self_modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
-position = Vector2( 32, 0 )
+position = Vector2( 45, 0 )
 z_index = -20
 z_as_relative = false
-amount = 2
-lifetime = 15.0
-preprocess = 23.0
+amount = 3
+lifetime = 40.0
+preprocess = 25.0
 draw_order = 1
 texture = ExtResource( 12 )
 emission_shape = 2
-emission_rect_extents = Vector2( 32, 1 )
+emission_rect_extents = Vector2( 45, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -199,76 +204,111 @@ position = Vector2( 30, -45 )
 scale = Vector2( 1, 40 )
 
 [node name="UFO" parent="Obstacles" instance=ExtResource( 7 )]
-position = Vector2( -8.25, 14 )
+position = Vector2( 5, 110 )
 
 [node name="Healthbar" parent="Obstacles/UFO/Stats" index="0"]
 visible = false
 
 [node name="Characters" parent="." instance=ExtResource( 4 )]
 
+[node name="1" parent="Characters" index="0"]
+position = Vector2( 10.8084, 97.2532 )
+
+[node name="2" parent="Characters" index="1"]
+position = Vector2( 76.9764, 55.5157 )
+
+[node name="3" parent="Characters" index="2"]
+position = Vector2( 79.7121, 108.716 )
+
+[node name="4" parent="Characters" index="3"]
+position = Vector2( 8.72793, 63.3957 )
+
+[node name="5" parent="Characters" index="4"]
+position = Vector2( 79.3995, 20.0558 )
+
+[node name="6" parent="Characters" index="5"]
+position = Vector2( 35.7997, 128.363 )
+
 [node name="Labels" type="Control" parent="."]
-margin_left = 5.34938
 margin_top = 0.215855
-margin_right = 45.3494
+margin_right = 90.0
 margin_bottom = 40.2159
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TitleLabel" type="Label" parent="Labels"]
-margin_left = 0.355338
-margin_top = 4.64091
-margin_right = 55.3553
-margin_bottom = 26.6409
+margin_top = 15.1367
+margin_right = 90.0
+margin_bottom = 43.1367
 custom_fonts/font = SubResource( 3 )
 custom_constants/line_spacing = 0
 text = "First
-   Contact"
+Contact"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="StartLabel" type="Label" parent="Labels"]
-modulate = Color( 1, 1, 1, 0 )
 margin_left = -0.107925
-margin_top = 26.2532
-margin_right = 54.8921
-margin_bottom = 45.2532
+margin_right = 90.0
+margin_bottom = 160.0
 custom_fonts/font = SubResource( 4 )
 custom_constants/line_spacing = -5
 text = "Press J/Z
 to Start"
 align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Labels/StartLabel"]
+autoplay = "idle_flash"
 anims/clicked_flash = SubResource( 5 )
 anims/idle_flash = SubResource( 6 )
 
 [node name="CreditsLabel1" type="Label" parent="Labels"]
-margin_left = 4.61474
-margin_top = 60.9794
-margin_right = 44.6147
-margin_bottom = 74.9794
+margin_left = 1.0834
+margin_top = 145.005
+margin_right = 91.0834
+margin_bottom = 158.483
 custom_fonts/font = SubResource( 7 )
 custom_constants/line_spacing = -1
-text = "Programming by Efigi & Graphics by Cluly"
-align = 1
+text = "Programmed
+by Efigi"
+valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CreditsLabel2" type="Label" parent="Labels"]
-margin_left = 37.1879
-margin_top = 60.7249
-margin_right = 77.1879
-margin_bottom = 74.7249
+[node name="CreditsLabel3" type="Label" parent="Labels"]
+margin_left = -0.866714
+margin_top = 137.725
+margin_right = 89.35
+margin_bottom = 157.725
 custom_fonts/font = SubResource( 7 )
 custom_constants/line_spacing = -1
-text = "v1.0.2"
+text = "Graphics
+by Cluly"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VersionLabel" type="Label" parent="Labels"]
+margin_top = 150.0
+margin_right = 90.0
+margin_bottom = 160.0
+custom_fonts/font = SubResource( 8 )
+custom_constants/line_spacing = -1
+text = "v1.0.3"
 align = 1
+valign = 2
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -302,3 +342,5 @@ autoplay = true
 stream = ExtResource( 13 )
 
 [editable path="Obstacles/UFO"]
+
+[editable path="Characters"]

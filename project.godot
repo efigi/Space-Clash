@@ -15,7 +15,7 @@ _global_script_classes=[ {
 "path": "res://src/stats/Bombs.gd"
 }, {
 "base": "KinematicBody2D",
-"class": "Bullet",
+"class": "BulletLite",
 "language": "GDScript",
 "path": "res://src/objects/Bullet.gd"
 }, {
@@ -111,7 +111,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Bombs": "",
-"Bullet": "",
+"BulletLite": "",
 "Character": "",
 "ConditionMenu": "",
 "Enemy": "",
@@ -134,9 +134,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="First and Last Contact"
-run/main_scene="res://src/menus/MainMenu.tscn"
-config/icon="res://images/Invaders Icon.png"
+config/name="Space Clash"
+config/description="Bullethell in colorful 8x8 sprites!"
+run/main_scene="res://src/levels/Level1Mobile.tscn"
+config/icon="res://images/space boss v1.png"
 
 [autoload]
 

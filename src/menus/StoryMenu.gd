@@ -12,7 +12,7 @@ onready var audio_clicked = $Audio/Clicked
 var total_text = ""
 var letters = 0
 
-export var path = "res://src/levels/Level1.tscn"
+export var path = "res://src/levels/Level1Mobile.tscn"
 export var duration = 9.0
 
 func _ready():

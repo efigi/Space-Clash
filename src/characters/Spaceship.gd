@@ -2,9 +2,9 @@ class_name Spaceship
 extends Character
 
 var is_flipped : bool = false
-onready var tween = $Tween
+onready var tween = $Addons/Tween
 onready var shot_cd = $Timers/ShotCooldown
-onready var bullet_point = $BulletPoint
+onready var bullet_point = $Addons/BulletPoint
 onready var shot_line = $Addons/ShotLine
 #onready var sound_hurt = preload("")
 
@@ -40,15 +40,15 @@ func change_direction(dir = "idle"):
 	sprite.play(dir)
 
 func _on_ShotCooldown_timeout():
-	shot_line.default_color = Color("fff1e8")
+	shoot()
 #	spawn_bullet()
 #	play_sound("shoot")
 #	shot_cd.start()
 
 func shoot():
-	spawn_bullet()
+#	spawn_bullet()
+	$Addons/BulletSpawner.fire()
 	play_sound("shoot")
-	shot_line.default_color = Color("ff004d")
 	shot_cd.start()
 
 func bomb():
@@ -59,7 +59,7 @@ func bomb():
 		
 func spawn_bullet():
 	var b = bullet_resource.instance()
-	b.setup(Vector2.UP, shot_line.global_position)
+	b.setup(Vector2.UP, bullet_point.global_position)
 	object_holder.add_child(b)
 
 func damage(dmg = 1):
@@ -78,7 +78,6 @@ func damage(dmg = 1):
 
 func show_other_parts(t = true):
 	particles.visible = t
-	shot_line.visible = t
 	
 func _on_Tween_tween_completed(object, key):
 	if key == ":scale":

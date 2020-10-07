@@ -39,7 +39,7 @@ tracks/0/keys = {
 }
 
 [node name="Warning" type="Sprite"]
-position = Vector2( -32, 8 )
+position = Vector2( -64, 40 )
 texture = ExtResource( 1 )
 centered = false
 region_enabled = true
